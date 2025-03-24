@@ -3,6 +3,10 @@ name: 下载JM本子 (dispatch)
 on:
   workflow_dispatch:
     inputs:
+      id:
+        description: 'run identifier'
+        required: false
+        
       JM_ALBUM_IDS:
         type: string
         description: 本子id（多个id用-隔开，如 '123-456-789'）
@@ -57,6 +61,13 @@ on:
 
 
 jobs:
+  id:
+    name: Workflow ID Provider
+    runs-on: ubuntu-latest
+    steps:
+      - name: ${{github.event.inputs.id}}
+        run: echo run identifier ${{ inputs.id }}
+        
   crawler:
     runs-on: ubuntu-latest
     env:
